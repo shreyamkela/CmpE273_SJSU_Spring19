@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+
+            function decimalToHex(decimal) { // Convert decimal colour value to hex colour value
+                hex = decimal.toString(16);
+                if (hex.length % 2) { 
+                    // Hex code has to be of 6 letters to be read by property.style.backgroundColor
+                    // Therefore individual length for red, green, blue codes is 2
+                    hex = '0' + hex;
+                }
+                return hex;
+            }
+
+            function randomColourHexValue() { // Generate a random colour value in hex format
+                var decimalValue = Math.random() * 255;
+                decimalValue = Math.floor(decimalValue);
+                var hexValue = decimalToHex(decimalValue); // Convert random colour decimal to hex
+                return hexValue;
+            }
+
+            function setColor(button) { // Change backgroundColor of button to a random colour value
+                var red = randomColourHexValue();
+                var green = randomColourHexValue();
+                var blue = randomColourHexValue();
+                var property = document.getElementById(button); // property is assigned the id of button    
+                property.style.backgroundColor = `#${red}${blue}${green}`; // 6 letter string
+                alert('Colour changed!');    
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <!-- onclick is the generator of the event that runs the javascript -->
+        <input type="button" id="button" value = "Click me to change my colour!" style= "color : black" onclick="setColor('button')";/>
+    </body>
+</html>
