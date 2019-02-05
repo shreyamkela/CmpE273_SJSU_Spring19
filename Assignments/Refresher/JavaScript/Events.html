@@ -20,11 +20,13 @@
                 return hexValue;
             }
 
-            function setColor(button) { // Change backgroundColor of button to a random colour value
+            function setColor(myButton) { // Change backgroundColor of button to a random colour value
                 var red = randomColourHexValue();
                 var green = randomColourHexValue();
                 var blue = randomColourHexValue();
-                var property = document.getElementById(button); // property is assigned the id of button    
+                var property = document.getElementById(myButton); 
+                // getElementById gets the element (i.e button object) with the id stored in myButton (i.e 'button' which was passed by onclick) and assigns it to property variable. 
+                // Now we can manipulate this element by manipulating property variable    
                 property.style.backgroundColor = `#${red}${blue}${green}`; // 6 letter string
                 alert('Colour changed!');    
             }
