@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p>Click to get the current coordinates.</p>
+
+        <button onclick = "getLocation()"> Click me! </button>
+
+        <p id="location">Location will print here...</p>
+        <p id="stored">Location will also be stored in the Local Storage.</p>
+
+        <script>
+            localStorage.clear();
+            var myLocation = document.getElementById("location");
+
+            function getLocation() { // This will be called when button is clicked. navigator geolocation getCurrentPosition are a predefined function
+                if (!navigator.geolocation) {
+                    myLocation.innerHTML = "Sorry, geolocation is not supported by your browser.";
+                } else { 
+                    navigator.geolocation.getCurrentPosition(position); // getCurrentPosition has a callback function for success, that takes a Position object as its sole input parameter. Here position is the callback
+                }
+            }
+
+            function position(myPosition) { // Callback function for getCurrentPosition. Gets called if api successfully returns the location response.
+                myLocation.innerHTML = "Latitude: " + myPosition.coords.latitude + 
+                "<br>Longitude: " + myPosition.coords.longitude;
+
+                store(myPosition.coords.latitude, myPosition.coords.longitude); // Store into local storage
+                
+            }
+
+    
+            function store(latitude, longitude) {
+                
+                if (typeof(Storage) !== "undefined") { 
+                
+                    localStorage.setItem("Latitude", latitude); 
+                    localStorage.setItem("Longitude", longitude);
+
+                    document.getElementById("stored").innerHTML = "Location stored!"; 
+                } else {
+                    document.getElementById("stored").innerHTML = "Sorry, your browser does not support local storage.";
+                }
+            }
+
+
+        </script>
+
+    </body>
+</html>
