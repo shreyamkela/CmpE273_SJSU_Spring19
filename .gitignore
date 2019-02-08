@@ -1,6 +1,5 @@
 **/node_modules/
-**/test.html
-**/test.js
+**/test.*
 **/*.tmp
 **/*.docx
 **/toDo.*

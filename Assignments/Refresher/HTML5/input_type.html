@@ -1,0 +1,44 @@
+<!DOCTYPEhtml>
+<html>
+    <head>
+        <title>University Details</title>
+    </head>
+
+    <body>
+
+        <form>
+            <h3>Current Attending University</h3>
+            <h4>Enter University Details</h4>
+                        University Name:
+            <input type = "text" name = "uniname" autofocus required>
+            <br><br>
+                        College Name:
+            <input type = "text" name = "colname">
+            <br><br>
+                        Edu Id:     
+            <input type = "email" name = "email" autocomplete = "on" required>
+            <br><br>
+                        Address:
+            <input type = "text" name = "address">
+            <br><br>
+                        Pin Code :
+            <input type = "text" name = "pincode" pattern = "[0-9]{5}" title = "Pincode should be of 5 digits">
+            <br><br><br>
+                        Degree pursuing: <br>
+            <input type = "radio" name = "degree" value = "masters" checked> Masters <br>
+            <input type = "radio" name = "degree" value = "bachelors"> Bachelors <br>
+            <input type = "radio" name = "degree" value = "others"> Others
+            <br><br><br>
+                        Current Job:<br>
+            <input type = "checkbox" name = "job1" value = "isa">Instructional Student Assistant<br>
+            <input type = "checkbox" name = "job2" value = "ga">Graduate Assistant<br>
+            <input type = "checkbox" name = "job3" value = "ra">Research Assistant<br>
+            <input type = "checkbox" name = "job4" value = "on">Other On-campus<br>
+            <br><br>
+
+            <input type = "submit"><br><br>
+            <input type = "reset">
+        </form>
+
+    </body>
+</html>
