@@ -1,5 +1,5 @@
 Inheritance in function
-Prototype in Class
+Prototype in Class - When we console.log an object/instance of a class in which prototype methods have been added; the console.log would only show us the attributes of the instance and would hide the prototype methods. These methods can be used when explicitly called but do not show when the object is done console.log
 Prototype in function
 _proto_
 call()
