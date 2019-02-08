@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        First Name: <input type="text" id="firstname"><br> <!-- This is the element that inputs first name. The element id is firstname. Note - <br> is line break-->
+        Last Name: <input type="text" id="lastname"><br><br>
+        <button onclick="store()" type="button">Store</button><br><br> <!--onclick event calls store(). We can also pass parameters in store-->
+        <div id="result">Enter the details and click on Store.</div>  <!--The <div> tag defines a division or a section in an HTML document. The <div> element is often used as a container for other HTML elements to style them with CSS or to perform certain tasks with JavaScript.-->
+
+        <script type="text/javascript">
+
+            localStorage.clear(); // Normally, even if the session is changed or the browser is closed and reopened the data remains in the local storage. We can delete, get and manipulate data as required. Here, we use localStorage.clear() to clear any previously stored data. localStorage is predefined keyword to access the local storage.
+
+            function store(){
+                if (typeof(Storage) !== "undefined") { // If no storage found then else condition is activated. Generally, for local storage manipulation, we use this if else construct.
+                    var inputFirstName = document.getElementById("firstname"); // In document.getElementById("firstname"), document is the dom or the current webpage, id is firstname which represents a particular element defined in the html. Therefore document.getElementById("firstname") gets the element which has the id firstname from the document and stores it into inputFirstName
+                    var inputLastName = document.getElementById("lastname");
+
+                    localStorage.setItem("First name", inputFirstName.value); // setItem sets the value inputFirstName.value to the name/key "First name". inputFirstName.value is used as inputFirstName is the html input element object. To access the value stored in this element, we use the predefined 'value' method.
+                    localStorage.setItem("Last name", inputLastName.value);
+
+                    document.getElementById("result").innerHTML = "Details stored!"; // Change the 'result' div element
+                } else {
+                    document.getElementById("result").innerHTML = "Sorry, your browser does not support local storage.";
+                }
+            }
+        </script>
+
+    </body>
+</html>
+
