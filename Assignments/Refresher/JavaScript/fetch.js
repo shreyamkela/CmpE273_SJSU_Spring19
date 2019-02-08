@@ -4,6 +4,7 @@
 // Fetch is a new native JavaScript API, supported by most browsers today. Fetch allows you to make network requests similar to XMLHttpRequest . According to Google Developers Documentation Fetch makes it easier to make asynchronous requests and handle responses better than with the older XMLHttpRequest.
 // Fetch vs Ajax. Fetch is a browser API for loading texts, images, structured data, asynchronously to update an HTML page. It's a bit like the definition of Ajax! But fetch is built on the Promise object which greatly simplifies the code, especially if used in conjunction with async/await.
 // XMLHttpRequest (XHR) is an API in the form of an object whose methods transfer data between a web browser and a web server. The object is provided by the browser's JavaScript environment.
+// Notmally in javascript web dev we can use axios.get istead of fetch?
 
 // Fake Online REST API for Testing and Prototyping - https://jsonplaceholder.typicode.com/
 
