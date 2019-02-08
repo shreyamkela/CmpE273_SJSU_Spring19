@@ -1,0 +1,14 @@
+{
+  "name": "refresher",
+  "version": "1.0.0",
+  "description": "Note: To run the codes live on the browser if required, we use the Live Server (by Ritwick Dey) extension in VSCode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  }
+}

@@ -23,7 +23,7 @@ const fetch = require('node-fetch');
 function book() {
     // return fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:0747532699') // then() keyword returns the promise reponse. If then is not used the promise remains pending.
     return fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:0747532699')
-    .then(reponse => reponse.json()) // 
+    .then(reponse => reponse.json()) // Response from url is passed into 'response' object. In reponse => reponse.json() the first 'reponse' word is the parameter in which is passed the Respose received. Now 'response' has some data inside it. Therefore we do reponse.json() which returns the json reponse. This returned json response is received by the next then() statement as its argument. This is the use of the arrow =>. On the left side of the => is the parameter and on the right side is the manipulation of that parameter and its return value. 
     .then(jsonResponse => console.log(jsonResponse.items[0].volumeInfo.title));
 }
 
