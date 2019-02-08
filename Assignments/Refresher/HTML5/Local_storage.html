@@ -18,6 +18,7 @@
 
                     localStorage.setItem("First name", inputFirstName.value); // setItem sets the value inputFirstName.value to the name/key "First name". inputFirstName.value is used as inputFirstName is the html input element object. To access the value stored in this element, we use the predefined 'value' method.
                     localStorage.setItem("Last name", inputLastName.value);
+                    // When we have stored into the local storage, we can access the First name stored in local storage from browser developer tools by doing localStorage["First name"] on the browser console.
 
                     document.getElementById("result").innerHTML = "Details stored!"; // Change the 'result' div element
                 } else {
