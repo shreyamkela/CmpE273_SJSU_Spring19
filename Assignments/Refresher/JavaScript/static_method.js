@@ -21,7 +21,7 @@ class student {
     }
 
     get printTotalCourses() {
-        var courseCount = student.totalCourses(this.courseGrades); // The class accessing the static method
+        var courseCount = student.totalCourses(this.courseGrades); // The class method printTotalCourses accessing the static method totalCourses
         return courseCount;
     }
 }
@@ -35,5 +35,7 @@ let alex = new student('Alex', courseGrades);
 
 console.log(alex.myName); // Prints name    
 console.log(alex.printTotalCourses); // Prints course count
-console.log(alex.totalCourses); // This gives undefined as totalCourses is not accessible by alex. It is only accessible by the class itself
-console.log(student.totalCourses(courseGrades)); // Prints course count without instanciation, by just passes the courseGrades object
+console.log(student.totalCourses(courseGrades)); // Prints course count without instantiation, by just passes the courseGrades object
+console.log(alex.totalCourses); // This gives undefined as totalCourses is defined with an argument
+console.log(alex.totalCourses(courseGrades)); // This gives error as totalCourses is not accessible by the instance
+
