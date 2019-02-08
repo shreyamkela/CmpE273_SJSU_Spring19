@@ -13,7 +13,7 @@
             localStorage.clear();
             var myLocation = document.getElementById("location");
 
-            function getLocation() { // This will be called when button is clicked. navigator geolocation getCurrentPosition are a predefined function
+            function getLocation() { // This will be called when button is clicked. navigator geolocation getCurrentPosition are a predefined function. Not that chrome will first promt to allow or block location tracking. User has to allow it for this to work.
                 if (!navigator.geolocation) {
                     myLocation.innerHTML = "Sorry, geolocation is not supported by your browser.";
                 } else { 
