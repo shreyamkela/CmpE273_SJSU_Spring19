@@ -1,0 +1,6 @@
+Inheritance in function
+Prototype in Class
+Prototype in function
+_proto_
+call()
+spread operator ...
