@@ -3,3 +3,4 @@
 **/*.tmp
 **/*.docx
 **/toDo.*
+**/Java/**/bin/
