@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class queuesTest {
 	
-	// For comments related to JUnit, refer stackTest.java
+	// For comments related to JUnit, refer stackTest.java and genericsTest.java
 	
 	@Test
 	void testSchedular() {

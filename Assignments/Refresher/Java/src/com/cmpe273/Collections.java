@@ -12,7 +12,7 @@ public class Collections {
 		return matchCourses.contains(matchThis);
 	}
 	
-	public static void main(String args[]) { // If the main is not public then we cannot run main by the shortcut keys in eclipse
+	public static void main(String args[]) { 
 		Collections newMatch = new Collections();
 		boolean isMatch_1 = newMatch.match("CmpE 273");
 		boolean isMatch_2 = newMatch.match("CmpE 281");
