@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 public class generics {
 	
+	// Generics in Java are similar to templates in C++
+	
 	HashSet<String> stringLicenses = new HashSet<String>();	
 	HashSet<Integer> intLicenses = new HashSet<Integer>();	
 	public <E> boolean checkLicense(E check) {
