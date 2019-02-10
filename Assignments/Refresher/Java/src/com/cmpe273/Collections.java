@@ -4,8 +4,7 @@ import java.util.HashSet;
 
 public class Collections {
 	
-	HashSet<String> matchCourses = new HashSet<String>();
-	
+	HashSet<String> matchCourses = new HashSet<String>();	
 	public boolean match(String matchThis) {
 		matchCourses.add("CmpE 285");
 		matchCourses.add("CmpE 273");

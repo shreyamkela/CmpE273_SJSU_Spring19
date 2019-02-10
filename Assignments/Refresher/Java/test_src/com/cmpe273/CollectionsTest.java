@@ -18,8 +18,7 @@ class CollectionsTest {
 	void test() {
 		boolean result = classUnderTest.match("CmpE 273");
 		boolean expectedValue = true;
-		assertEquals(expectedValue, result);
-		
+		assertEquals(expectedValue, result);	
 	}
 
 }
