@@ -1,6 +1,5 @@
 **/node_modules/
 **/test.*
 **/*.tmp
-**/*.docx
 **/toDo.*
 **/Java/**/bin/
