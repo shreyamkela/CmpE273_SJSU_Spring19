@@ -19,10 +19,10 @@
 
     <body>
 
-        <form>
+        <form autocomplete="off"> <!--autocomplete="off" so that the form doesnt display any suggestions-->
             <h3>User Information</h3>
                         Name
-            <input type = "text" id = "name" title = "Firstname and Lastname - Alphabet-only string"" autofocus required>
+            <input type = "text" id = "name" pattern = "[A-Za-z]" title = "Enter firstname and lastname using alphabets only" autofocus required>
             <br><br>
 
             
@@ -31,7 +31,7 @@
             <br><br>
 
                         Department
-            <input type = "text" id = "dept" pattern = "[A-Za-z]" title = "Department - Alphabet-only string" required>
+            <input type = "text" id = "dept" pattern = "[A-Za-z]" title = "Enter department using alphabets only" required>
             <br><br>
 
             <input type="submit" value = "Add a User" style= "background-color : lightblue" onclick="validateUserUniqueness()"/><br><br>
