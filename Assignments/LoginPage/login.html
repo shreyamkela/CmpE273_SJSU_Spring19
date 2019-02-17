@@ -30,7 +30,7 @@
             <input type = "text" id = "password" title = "Password must be contain an uppercase, a lowercase, and a number" required>
             <br><br>
 
-            <input type="button" id="button_1" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin()"/><br><br>
+            <input type="submit" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin()"/><br><br> <!-- If we keep the input type of button as 'button' then the validations such as required and pattern dont work. This is because these predefined HTML5 validations only work with the submit button type - https://stackoverflow.com/questions/16707743/html5-validation-when-the-input-type-is-not-submit-->
         </form>
         <div id="result"></div>
 
