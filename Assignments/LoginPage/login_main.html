@@ -3,7 +3,7 @@
     <head>
         <title>User Login</title>
 
-        <script type="text/javascript" src="validateAdmin.js" async> 
+        <script type="text/javascript" src="validateAdmin.js" async> // Send username and password to validateAdmin.js which checks whether username and password are 'admin' or not.
         //  Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup 
         </script> 
          
@@ -12,7 +12,7 @@
 
 
 
-    <!--Add vanishing text inside text boxes. Align to centre and add boundaries. Add colour to the submit button-->
+    <!--Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button-->
 
 
 
@@ -30,8 +30,9 @@
             <input type = "text" id = "password" title = "Password must be contain an uppercase, a lowercase, and a number" required>
             <br><br>
 
-            <input type="button" id="button" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin(username, password)"/>
+            <input type="button" id="button" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin()"/><br><br>
         </form>
+        <div id="result"></div>
 
 
 
