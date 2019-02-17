@@ -22,7 +22,7 @@
         <form>
             <h3>User Information</h3>
                         Name
-            <input type = "text" id = "name" title = "Firstname and Lastname" autofocus required>
+            <input type = "text" id = "name" title = "Firstname and Lastname - Alphabet-only string"" autofocus required>
             <br><br>
 
             
@@ -31,11 +31,11 @@
             <br><br>
 
                         Department
-            <input type = "text" id = "dept" required>
+            <input type = "text" id = "dept" pattern = "[A-Za-z]" title = "Department - Alphabet-only string" required>
             <br><br>
 
             <input type="submit" value = "Add a User" style= "background-color : lightblue" onclick="validateUserUniqueness()"/><br><br>
-            <input type = "reset">
+            <input type = "reset" value="Clear">
         </form>
         <div id="result"></div>
 
