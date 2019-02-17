@@ -3,9 +3,9 @@
     <head>
         <title>Admin Login</title>
 
-        <!-- <script type="text/javascript" src="validateAdmin.js" async> // Send username and password to validateAdmin.js which checks whether username and password are 'admin' or not. Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup
+        <!-- <script type="text/javascript" src="<javascript>.js" async> // Send username and password to validateAdmin.js which checks whether username and password are 'admin' or not. Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup
         </script> -->
-        <!--  We cannot load validateAdmin.js in this way. In ejs views, we use the ejs < %... syntax for backend javascript and <script>...</script> for frontend javascript. This is demonstrated as validateAdmin.js does not run when configured with onclick but ejsFrontend() does run when configured with onclick. Refer - https://stackoverflow.com/questions/39989746/javascript-inside-ejs-code. Also, we can include the backend js as static pages in public and then render them using express static middleware inside the script tag with src="<js file>". Refer - https://stackoverflow.com/questions/41176097/should-i-be-using-script-tags-in-ejs-files and https://stackoverflow.com/questions/30535309/where-should-i-define-js-function-to-call-in-ejs-template -->
+        <!--  We cannot load any <javascript>.js server side files in this way in ejs. In ejs views, we use the ejs < %... syntax for backend javascript and <script>...</script> for frontend javascript. This is demonstrated as any dummy <javascript>.js does not run when configured with onclick of submit but ejsFrontend() does run when configured with onclick. Refer - https://stackoverflow.com/questions/39989746/javascript-inside-ejs-code. Also, we can include the backend js as static pages in public and then render them using express static middleware inside the script tag with src="<js file>". Refer - https://stackoverflow.com/questions/41176097/should-i-be-using-script-tags-in-ejs-files and https://stackoverflow.com/questions/30535309/where-should-i-define-js-function-to-call-in-ejs-template -->
         <!-- Note - Using <%%> with ... between them, inside comments of html in ejs gives an error, as ejs will read them even when inside comments -->
         
         <!-- 
@@ -27,13 +27,14 @@
                     // TAKE TO THE USER DETAILS PAGE
                 } else {
                     //alert("Access Denied!"); // If we use alert then the 'Please fill out this field' validation message of HTML5 is not shown and straightaway this alert box is shown
-                    console.log("Access Denied!");
-                    return false;
-                    // if(userName.value != "" && passWord.value != "") { // Reset only if both the text boxes are filled
-                    //     userName.value = ""; // If access denied, reset the fields
-                    //     passWord.value = "";
-                    //     alert("Access Denied!");
-                    // }
+                    if(userName.value != "" && passWord.value != "") { // Reset only if both the text boxes are filled
+                        userName.value = ""; // If access denied, reset the fields
+                        passWord.value = "";
+                        console.log("Access Denied!");
+                        alert("Access Denied!");
+                        return false;
+                }             
+                    
                     // ADD COOKIES AND EXPRESS SESSION FUNCTIONALITY TO RESTRICT USER IF ACCESS DENIED
                 }
             }
@@ -42,7 +43,7 @@
     </head>
     <!-- Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button -->
     <body>
-        <form onsubmit="javascript: return validateAdmin()" action="javascript: print()" method="POST"> <!-- Validate admin with onsubmit. If validateAdmin() returns false then action script is notexecuted. Refer - https://stackoverflow.com/questions/29014570/a-forms-action-and-onsubmit-which-executes-first -->
+        <form onsubmit="javascript: return validateAdmin()" method="POST"> <!-- Validate admin with onsubmit. If validateAdmin() returns false then action script is notexecuted. Refer - https://stackoverflow.com/questions/29014570/a-forms-action-and-onsubmit-which-executes-first -->
             <h3>Login Page</h3>
                         Username
             <input type = "text" id = "username" title = "Username must be between 5 to 20 characters" autofocus required>
@@ -52,9 +53,9 @@
             <br><br>
             <input type="submit" value = "Submit" style= "background-color : lightblue"/><br><br> 
             <!-- <input type="submit" value = "Submit" style= "background-color : lightblue" onclick="ejsFrontend()"/><br><br>  -->
-            <!-- If we keep the input type of button as 'button' then the validations such as required and pattern dont work. This is because these predefined HTML5 validations only work with the submit button type - https://stackoverflow.com/questions/16707743/html5-validation-when-the-input-type-is-not-submit -->
+            <!-- If we keep the input type of button as 'button' then the validations such as required and pattern dont work. This is because these predefined HTML5 validations only work with the submit button type - https://stackoverflow.com/questions/16707743/html5-validation-when-the-input-type-is-not-submit --> 
         </form>
-        <div id="result"></div>
+        <!-- <div id="result"></div> -->
     </body>
 </html>
 

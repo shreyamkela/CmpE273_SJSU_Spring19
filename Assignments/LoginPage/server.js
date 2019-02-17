@@ -24,8 +24,12 @@ app.use((req, res, next) => { //Registering your custom express middleware. next
 // Keep the ejs, hbs, etc view files (which are essentially all html files) in the views folder. Keep the static files like plain html files, images, etc in the public folder and configure them with express static middleware
 // Refer - https://stackoverflow.com/questions/16111386/error-cannot-find-module-html
 // Refer - https://www.geeksread.com/what-is-ejs-html-page-using-nodejs-express-framework/
-app.get('/', (req, res) => { // / is the root or landing page/route of your application/website. Here we are defining what happens when user visits the '/' page. req defines all the data/flags etc the user has sent i.e req can be set by the user input and then by analysis req we can determine what to send back. res is the response we send back
+app.get('/', (req, res) => { // '/' is the root or landing page/route of your application/website. Here we are defining what happens when user visits the '/' page. req defines all the data/flags etc the user has sent i.e req can be set by the user input and then by analysis req we can determine what to send back. res is the response we send back
     res.render('login.ejs'); 
+});
+
+app.post('/', (req, res) => { // After validation of the input on app.get('/'... page, we post to change the route to user_details page.
+    res.render('user_details.ejs'); 
 });
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
