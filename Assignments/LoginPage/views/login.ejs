@@ -1,0 +1,41 @@
+<!-- <!DOCTYPEhtml>
+<html>
+    <head>
+        <title>Admin Login</title>
+
+        <script type="text/javascript" src="validateAdmin.js" async> // Send username and password to validateAdmin.js which checks whether username and password are 'admin' or not.
+        //  Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup 
+        </script>  
+        
+                
+        We cannot load validateAdmin.js in this way. In ejs views, we use <% ... %> for backend javascript and <script>...</script> for frontend javascript. Refer - https://stackoverflow.com/questions/39989746/javascript-inside-ejs-code
+        Also, we can include the backend js as static pages in public and then render them using express static middleware inside the script tag with src="<js file>". Refer - https://stackoverflow.com/questions/41176097/should-i-be-using-script-tags-in-ejs-files and https://stackoverflow.com/questions/30535309/where-should-i-define-js-function-to-call-in-ejs-template
+        
+
+         
+         
+    </head>
+
+    Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button
+
+    <body>
+
+        <form>
+            <h3>Login Page</h3>
+                        Username
+            <input type = "text" id = "username" title = "Username must be between 5 to 20 characters" autofocus required>
+            <br><br>
+
+            
+                        Password
+            <input type = "text" id = "password" title = "Password must be contain an uppercase, a lowercase, and a number" required>
+            <br><br>
+
+            <input type="submit" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin()"/><br><br> 
+            If we keep the input type of button as 'button' then the validations such as required and pattern dont work. This is because these predefined HTML5 validations only work with the submit button type - https://stackoverflow.com/questions/16707743/html5-validation-when-the-input-type-is-not-submit
+        </form>
+        <div id="result"></div>
+
+
+    </body>
+</html> -->
