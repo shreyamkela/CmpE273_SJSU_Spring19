@@ -1,0 +1,39 @@
+<!DOCTYPEhtml>
+<html>
+    <head>
+        <title>User Login</title>
+
+        <script type="text/javascript" src="validateAdmin.js" async> 
+        //  Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup 
+        </script> 
+         
+    </head>
+
+
+
+
+    <!--Add vanishing text inside text boxes. Align to centre and add boundaries. Add colour to the submit button-->
+
+
+
+
+    <body>
+
+        <form>
+            <h3>Login Page</h3>
+                        Username
+            <input type = "text" id = "username" title = "Username must be between 5 to 20 characters" autofocus required>
+            <br><br>
+
+            
+                        Password
+            <input type = "text" id = "password" title = "Password must be contain an uppercase, a lowercase, and a number" required>
+            <br><br>
+
+            <input type="button" id="button" value = "Submit" style= "background-color : lightblue" onclick="validateAdmin(username, password)"/>
+        </form>
+
+
+
+    </body>
+</html>
