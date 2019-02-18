@@ -9,13 +9,13 @@
         <form action="/database" method="POST" autocomplete="off"> <!--autocomplete="off" so that the form doesnt display any suggestions-->
             <h3>User Information</h3>
                         Name
-            <input type = "text" name = "name" pattern = "[A-Za-z]{1,}" title = "Enter firstname and lastname using alphabets only" autofocus required> <!-- [A-Za-z]{1,} - {1,} specifies 1 to any number of digits -->
+            <input type = "text" name = "name" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter firstname and lastname using alphabets only" autofocus required> <!-- Refer - https://stackoverflow.com/questions/15805555/java-regex-to-validate-full-name-allow-only-spaces-and-letters. Also, [A-Za-z]{1,} - [A-Za-z] specifies all alphabets lower or uppercase and {1,} specifies 1 to any number of characters -->
             <br><br>  
                         Student ID
-            <input type = "text" name = "sid" pattern = "[0-9]{9}" title = "Student ID is a 9 digit number" required>
+            <input type = "text" name = "sid" pattern = "[0-9]{1,}" title = "Student ID must be a number" required>
             <br><br>
                         Department
-            <input type = "text" name = "dept" pattern = "[A-Za-z]{1,}" title = "Enter department using alphabets only" required>
+            <input type = "text" name = "dept" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter department using alphabets only" required>
             <br><br>
             <input type="submit" value = "Add a User" style= "background-color : lightblue"/><br><br>
             <input type = "reset" value="Clear" style="background-color :lightblue">

@@ -47,17 +47,35 @@ app.post('/database', (req, res) => {
     var name = req.body.name; 
     var sid = req.body.sid;
     var dept = req.body.dept;
-    // var database = JSON.parse(fs.readFileSync('./database.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
-    fs.appendFile('./database.json', name, (err) => {
-        if(err) {
-            console.log('Unable to append to database.json');
-        } else {
-            console.log(name);
-        }
-    });
+    var database = JSON.parse(fs.readFileSync('./database.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
+    if(sid in database) {
+        res.send("Present");
+    } else {
+        let partOfEntry = {
+            "Name" : name, 
+            "Department" : dept
+        };
+        let entry = {};
+        entry[sid] = partOfEntry;
+        database = Object.assign(entry, database); // Add a new entry to the database object
+        fs.writeFileSync('./database.json', database, (err) => { // Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a database object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
+            if(err) {
+                console.log('Unable to append to database.json');
+            } else {
+                console.log(name);
+            }
+        });
+    }
+
+    
+    // fs.appendFile('./database.json', name, (err) => {
+    //     if(err) {
+    //         console.log('Unable to append to database.json');
+    //     } else {
+    //         console.log(name);
+    //     }
+    // });
 });
-
-
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
     console.log(`Server is up on port ${port}`);
