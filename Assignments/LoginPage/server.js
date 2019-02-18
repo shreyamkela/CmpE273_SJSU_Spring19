@@ -9,6 +9,7 @@ var app = express(); // make an app/application server that handles requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 app.set('view engine', 'ejs');
 
 // Maintain a log for all requests to the server:
@@ -29,13 +30,19 @@ app.use((req, res, next) => { //Registering your custom express middleware. next
 // Refer - https://stackoverflow.com/questions/16111386/error-cannot-find-module-html
 // Refer - https://www.geeksread.com/what-is-ejs-html-page-using-nodejs-express-framework/
 app.get('/', (req, res) => { // '/' is the root or landing page/route of your application/website. Here we are defining what happens when user visits the '/' page. req defines all the data/flags etc the user has sent i.e req can be set by the user input and then by analysis req we can determine what to send back. res is the response we send back
-    res.render('login_v1.ejs'); 
+    res.render('login_v1.ejs', { alert: "" }); // alert variable is used afterwards
+    // Sending data from res.render intp the ejs file - https://stackoverflow.com/questions/37991995/passing-a-variable-from-node-js-to-html/51084510
 });
 
 app.post('/', (req, res) => { // After validation of the input on app.get('/'... page, we post to change the route to user_details page.
     var userName = req.body.username; // We need to store req.body.username in a var so as to print or use it. Directly using req.body.username) treats it as [Object object] and doesnt give us the actual internal value
-    console.log(userName);
-    res.render('login_v1.ejs'); 
+    var passWord = req.body.password;
+    if(userName == 'admin' && passWord == 'admin') {
+        res.render('user_details.ejs'); // If admin then render the user details page
+    } else {
+        res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied
+    }
+   
     
 });
 
