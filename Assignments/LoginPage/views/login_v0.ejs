@@ -1,5 +1,8 @@
 <!DOCTYPEhtml>
 <html>
+
+<!-- This file is not the final file. The final file is login_v0. For the final login with the logic at the backend, refer to login_v1 file -->
+
     <head>
         <title>Admin Login</title>
 
@@ -15,7 +18,7 @@
             }
         </script> -->
 
-        <script>
+        <script type="text/javascript" async> // Load script in async without blocking the html
             function validateAdmin() {
                 var userName = document.getElementById('username');
                 var passWord = document.getElementById('password');
@@ -33,17 +36,20 @@
                         console.log("Access Denied!");
                         alert("Access Denied!");
                         return false;
-                }             
+                    }             
                     
                     // ADD COOKIES AND EXPRESS SESSION FUNCTIONALITY TO RESTRICT USER IF ACCESS DENIED
                 }
             }
         </script>
-   
+        
+         <!-- We have used onsubmit to validate the 'admin'. That is this logic is on the frontend only. As a good practice and in industry, we have to keep most of the logic at the backend. This is because if the logic is on frontend, then if the user does inspect element on the page, then they might be able to view our internal logic. This is even possible if the logic is passed as a frontend js file. Therefore, we keep most of our logic at the backend -->
+       
+
     </head>
     <!-- Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button -->
     <body>
-        <form onsubmit="javascript: return validateAdmin()" method="POST"> <!-- Validate admin with onsubmit. If validateAdmin() returns false then action script is notexecuted. Refer - https://stackoverflow.com/questions/29014570/a-forms-action-and-onsubmit-which-executes-first -->
+        <form onsubmit="javascript: validateAdmin()"> <!-- Validate admin with onsubmit. If validateAdmin() returns false then action script is notexecuted. Refer - https://stackoverflow.com/questions/29014570/a-forms-action-and-onsubmit-which-executes-first -->
             <h3>Login Page</h3>
                         Username
             <input type = "text" id = "username" title = "Username must be between 5 to 20 characters" autofocus required>

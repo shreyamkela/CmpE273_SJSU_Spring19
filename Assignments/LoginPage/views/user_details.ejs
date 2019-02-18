@@ -1,39 +1,24 @@
 <!DOCTYPEhtml>
 <html>
     <head>
-        <title>User Details</title>
-
-        <script type="text/javascript" src="validateUserUniqueness.js" async> // Send username and password to validateAdmin.js which checks whether username and password are 'admin' or not.
-        //  Async loading of script. Refer - https://stackoverflow.com/questions/436411/where-should-i-put-script-tags-in-html-markup 
-        </script> 
-         
+        <title>User Details</title>     
+        <script type="text/javascript" async> // Load script in async without blocking the html
+        
+        </script>   
     </head>
-
-
-
-
     <!--Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button-->
-
-
-
-
     <body>
-
         <form autocomplete="off"> <!--autocomplete="off" so that the form doesnt display any suggestions-->
             <h3>User Information</h3>
                         Name
             <input type = "text" id = "name" pattern = "[A-Za-z]" title = "Enter firstname and lastname using alphabets only" autofocus required>
-            <br><br>
-
-            
+            <br><br>  
                         Student ID
             <input type = "text" id = "sid" pattern = "[0-9]{9}" title = "Student ID is a 9 digit number" required>
             <br><br>
-
                         Department
             <input type = "text" id = "dept" pattern = "[A-Za-z]" title = "Enter department using alphabets only" required>
             <br><br>
-
             <input type="submit" value = "Add a User" style= "background-color : lightblue" onclick="validateUserUniqueness()"/><br><br>
             <input type = "reset" value="Clear" style="background-color :lightblue">
         </form>
