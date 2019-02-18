@@ -9,7 +9,6 @@ var app = express(); // make an app/application server that handles requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 app.set('view engine', 'ejs');
 
 // Maintain a log for all requests to the server:
@@ -42,9 +41,23 @@ app.post('/', (req, res) => { // After validation of the input on app.get('/'...
     } else {
         res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied
     }
-   
-    
 });
+
+app.post('/database', (req, res) => { 
+    var name = req.body.name; 
+    var sid = req.body.sid;
+    var dept = req.body.dept;
+    // var database = JSON.parse(fs.readFileSync('./database.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
+    fs.appendFile('./database.json', name, (err) => {
+        if(err) {
+            console.log('Unable to append to database.json');
+        } else {
+            console.log(name);
+        }
+    });
+});
+
+
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
     console.log(`Server is up on port ${port}`);
