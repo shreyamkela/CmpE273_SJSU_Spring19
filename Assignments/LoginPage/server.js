@@ -37,7 +37,7 @@ app.post('/', (req, res) => { // After validation of the input on app.get('/'...
     var userName = req.body.username; // We need to store req.body.username in a var so as to print or use it. Directly using req.body.username) treats it as [Object object] and doesnt give us the actual internal value
     var passWord = req.body.password;
     if(userName == 'admin' && passWord == 'admin') {
-        res.render('user_details.ejs'); // If admin then render the user details page
+        res.render('user_details_v1.ejs', { alert: "" }); // If admin then render the user details page
     } else {
         res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied
     }
@@ -49,7 +49,7 @@ app.post('/database', (req, res) => {
     var dept = req.body.dept;
     var database = JSON.parse(fs.readFileSync('./database.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
     if(sid in database) {
-        res.send("Present");
+        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'> Student ID already present in the database! </div>" });
     } else {
         let partOfEntry = {
             "Name" : name, 
@@ -58,7 +58,7 @@ app.post('/database', (req, res) => {
         let entry = {};
         entry[sid] = partOfEntry;
         database = Object.assign(entry, database); // Add a new entry to the database object
-        fs.writeFileSync('./database.json', database, (err) => { // Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a database object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
+        fs.writeFileSync('./database.json', JSON.stringify(database, undefined, 2), (err) => { //  JSON.stringify(database, undefined, 2) specifying 2 spacing stores ithe object into json file in a pretty manner. Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a database object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
             if(err) {
                 console.log('Unable to append to database.json');
             } else {
@@ -66,15 +66,6 @@ app.post('/database', (req, res) => {
             }
         });
     }
-
-    
-    // fs.appendFile('./database.json', name, (err) => {
-    //     if(err) {
-    //         console.log('Unable to append to database.json');
-    //     } else {
-    //         console.log(name);
-    //     }
-    // });
 });
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku

@@ -18,8 +18,8 @@
             <input type = "text" name = "dept" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter department using alphabets only" required>
             <br><br>
             <input type="submit" value = "Add a User" style= "background-color : lightblue"/><br><br>
-            <input type = "reset" value="Clear" style="background-color :lightblue">
+            <input type = "reset" value="Clear" style="background-color :lightblue"><br><br>
         </form>
-        <div id="result"></div>
+        <%- alert %> <!-- This is ejs variable injection. Here we inject the alert variable from server.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
     </body>
 </html>
