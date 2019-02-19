@@ -71,13 +71,46 @@ app.post('/report', (req, res) => { // How to change link in url when user click
                 console.log(name);
             }
         });
-        res.render('report.ejs', { alert: "" });
+        var thisInject = "";
+        var idCount = 1;
+        for(keys in report) {
+        let name = report[keys]["Name"];
+        let dept = report[keys]["Department"];
+        thisInject = thisInject + `<tr><td>${name}</td><td>${keys}</td><td>${dept}</td><td><form action='/update/${keys}' method='post'><input type='submit' id=${idCount} value='Delete'></form></td><tr>`;
+        idCount++;
+    }
+        res.render('report.ejs', { inject : thisInject });
     }
 });
 
 
-app.post('/update', (req, res) => { 
-    res.render('report.ejs', { alert: "<tr><td>Name</td><td>Student ID</td><td>Department</td><td><form action='/update' method='post'><input type='submit' value='Delete'></form></td><tr>" });
+app.post('/update/:id', (req, res) => { 
+    var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
+    var id = req.params.id;
+
+    console.log("id"+id);
+    delete thisReport[id]; // delete the clicked entry from report
+
+    console.log(JSON.stringify(thisReport));
+
+    fs.writeFileSync('./report.json', JSON.stringify(thisReport, undefined, 2), (err) => { //  Overwrite report.json with the updated report
+        if(err) {
+            console.log('Unable to append to report.json');
+        } else {
+            console.log(name);
+        }
+    });
+
+    var thisInject = "";
+    var idCount = 1;
+    for(keys in thisReport) {
+        let name = thisReport[keys]["Name"];
+        let dept = thisReport[keys]["Department"];
+        thisInject = thisInject + `<tr><td>${name}</td><td>${keys}</td><td>${dept}</td><td><form action='/update/${keys}' method='post'><input type='submit' id=${idCount} value='Delete'></form></td><tr>`;
+        idCount++;
+    }
+    console.log()
+    res.render('report.ejs', { inject: thisInject });
 });
 
 
