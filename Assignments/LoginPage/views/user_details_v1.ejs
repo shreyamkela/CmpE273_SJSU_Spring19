@@ -2,27 +2,36 @@
 <html>
     <!--Initial user_details file in versions folder -->
     <head>
-        <title>User Details</title>     
-        
+        <style>
+            .verticalAlign {
+                padding-top: 50px;
+            }
+        </style>        
+        <title>User Details</title>  
     </head>
     <!--Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button-->
     <body>
-        <form action="/report" method="POST" autocomplete="off"> <!--autocomplete="off" so that the form doesnt display any suggestions-->
-            <h3>User Information</h3>
-                        Name
-            <input type = "text" name = "name" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter firstname and lastname using alphabets only" autofocus required> <!-- Refer - https://stackoverflow.com/questions/15805555/java-regex-to-validate-full-name-allow-only-spaces-and-letters. Also, [A-Za-z]{1,} - [A-Za-z] specifies all alphabets lower or uppercase and {1,} specifies 1 to any number of characters -->
-            <br><br>  
-                        Student ID
-            <input type = "text" name = "sid" pattern = "[0-9]{1,}" title = "Student ID must be a number" required>
-            <br><br>
-                        Department
-            <input type = "text" name = "dept" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter department using alphabets only" required>
-            <br><br>
-            <input type="submit" value = "Add a User" style= "background-color : lightblue"/>
-            <input type = "reset" value="Clear" style="background-color :lightblue"><br><br>
-        </form>
+        <div class='verticalAlign'>
+            <div style="text-align: center;">
+                <form action="/report" method="POST" autocomplete="off"> <!--autocomplete="off" so that the form doesnt display any suggestions-->
+                    <h2>User Information</h2><br><br>
+                                Name
+                    <input type = "text" name = "name" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter firstname and lastname using alphabets only" autofocus required> <!-- Refer - https://stackoverflow.com/questions/15805555/java-regex-to-validate-full-name-allow-only-spaces-and-letters. Also, [A-Za-z]{1,} - [A-Za-z] specifies all alphabets lower or uppercase and {1,} specifies 1 to any number of characters -->
+                    <br><br>  
+                                Student ID
+                    <input type = "text" name = "sid" pattern = "[0-9]{1,}" title = "Student ID must be a number" required>
+                    <br><br>
+                                Department
+                    <input type = "text" name = "dept" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter department using alphabets only" required>
+                    <br><br>
+                    <input type="submit" value = "Add a User" style= "background-color : lightblue"/>
+                    <input type = "reset" value="Clear" style="background-color :lightblue"><br><br>
+                </form>
 
-        <form action="/update"  method="GET"><input type="submit" value="View Report" style="background-color :lightblue"/></form> <!-- Create a different form tag to GET /update route that is fetch the current report. This line is a form tag itself because this has to run independent of the above form. If line is included inside the above form, then the form validations of 'required' and 'pattern' will run before this form runs -->
-        <%- alert %> <!-- This is ejs variable injection. Here we inject the alert variable from app.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
+                <form action="/update"  method="GET"><input type="submit" value="View Report" style="background-color :lightblue"/></form> <!-- Create a different form tag to GET /update route that is fetch the current report. This line is a form tag itself because this has to run independent of the above form. If line is included inside the above form, then the form validations of 'required' and 'pattern' will run before this form runs -->
+                <br><br>
+                <%- alert %> <!-- This is ejs variable injection. Here we inject the alert variable from app.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
+            </div>
+        </div>
     </body>
 </html>

@@ -1,18 +1,30 @@
 <!DOCTYPEhtml>
 <html>
     <head>
+        <style>
+           .verticalAlign {
+                padding-top: 50px;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>    
         <title>Report</title>   
     </head>
     <body>
-        <h3>User Report</h3>           
-        <table>
-            <tr>
-                <td>Name</td>
-                <td>Student ID</td>
-                <td>Department</td>
-            </tr>
-            <%- inject %> <!-- This is ejs variable injection. Here we inject the alert variable from app.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
-        </table><br><br>
-        <form action="/report"  method="GET"><input type="submit" value="Add New" style="background-color :lightblue"/></form> 
+        <div class='verticalAlign'>
+            <div style="text-align: center;">
+                <h2>User Report</h2><br><br>       
+                <table align='center' cellspacing='2'> <!--tables is not aligned according to the div above so alignment provided in the table itself-->
+                    <tr>
+                        <th>Name</th> <!--th - Heading of table-->
+                        <th>Student ID</th>
+                        <th>Department</th>
+                    </tr>
+                        <%- inject %> <!-- This is ejs variable injection. Here we inject the alert variable from app.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
+                </table><br><br>
+                <form action="/report"  method="GET"><input type="submit" value="Add New" style="background-color :lightblue"/></form> 
+            </div>
+        </div>
     </body>
 </html>

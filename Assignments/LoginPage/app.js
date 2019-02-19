@@ -26,7 +26,7 @@ app.set('view engine', 'ejs'); // ejs view engine
 
 // Maintain a log for all requests to the server:
 app.use((req, res, next) => { //Registering your custom express middleware. next specifies what to do when this middleware call completes. Using this we can chain different middlewares. This is async operation so next has to be called otherwise the app handlers for requests will never fire and app pauses till next is called. This middleware moniters all of the requests to our server and therefore if next is not used, our server will not respond to any request
-    writeLog.append('./logs/server.log', req.method, req.url); // log into log file
+    writeLog.append('./logs/server.log', req.method, req.url, req.sessionID); // log into log file
     next();
 });
 
@@ -42,12 +42,14 @@ app.get('/', (req, res) => { // '/' is the root or landing page/route of your ap
 app.post('/', (req, res) => { // After validation of the input on app.get('/'... page, we post to change the route to user_details page.
     var userName = req.body.username; // We need to store req.body.username in a var so as to print or use it. Directly using req.body.username) treats it as [Object object] and doesnt give us the actual internal value
     var passWord = req.body.password;
+    // console.log("Session ID: ", req.sessionID); // console.log on the serverside wont reflect on the frontend, i.e this console.log wont print on the browser console
     if(userName == 'admin' && passWord == 'admin') {
         req.session.user = "admin";
+        console.log
         res.redirect('/report');
     } else {
         req.session.user = undefined; // If we dont change req.session.user to undefined, then if we first login in as admin, req.session.user is still = admin when a different user tries to login so they will be able to hit a get request to /report from the url bar.
-        res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied. TODO: Can use res.redirect with the alert?
+        res.render('login_v1.ejs', { alert: "<div id='denied' style='text-align: center;'> Access Denied! </div>" }); // If not admin then add div of access denied. TODO: Can use res.redirect with the alert?
     }
 });
 // TODO: req.session.user == "admin" validation has to be done in each and every get/post route? Is there one time code for this?
@@ -68,7 +70,7 @@ app.post('/report', (req, res) => { // How to change link in url when user click
     // TODO: IN USER DETAILS PAGE, ADD A BUTTON TO VIEW DATABASE (AFTER student id already present?)
 
     if(sid in report) {
-        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'> Student ID already present in the report! </div>" });
+        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'  style='text-align: center;'> Student ID already present in the report! </div>" });
     } else {
         let partOfEntry = {
             "Name" : name, 
@@ -92,8 +94,9 @@ app.get(['/update','/update/:id'], (req, res) => {
     }
 });
 
-// TODO: Add Get Posts seperate - get for display and render, and post for update and redirect - when refresh, it is a get call
+// TODO: Note - GET is for render, and POST is for update and redirect - when page is refresh, it is a get call - All that browser does is GET calls - But postman can do GET as well as POST
 // TODO: Seperate each route to its own file
+// TODO: Does session management make the system stateful, as we as saving the cookes?
 app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the id param sent on the update route. For example if form/row of student id 21 is to be deleted, in the html form action='/update/21' is done and on the route, /update/:id catches the 21 and saves it as param which can be accessed with req.params 
     var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
     var id = req.params.id;
