@@ -4,18 +4,19 @@
 <!-- This file is the final login file. The initial login file is login_v0, inside versions folder. In this file we have removed all logic (of checking for admin) from the frontend and kept it at the backend -->
 
     <head>
+        <!--verticalAlign CSS style to pad everything vertically-->
         <style>
-            .verticalAlign {
+            .verticalAlign { 
                 padding-top: 50px;
             }
         </style>
         <title>Admin Login</title>
     </head>
-    <!-- Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button -->
+    <!-- TODO: Add vanishing text inside text boxes. Pattern in text box so as to enter more than 4 characters. Align to centre and add boundaries. Add colour to the submit button -->
     <body>
         <form action="#" method="POST">
-            <div class='verticalAlign'>
-                <div style="text-align: center;">
+            <div class='verticalAlign'> 
+                <div style="text-align: center;"> <!-- Align eveything horizontally to the center, inside the verticalAlign div-->
                     <h2>Login Page</h2><br>
                                 Username
                     <input type = "text" name="username" title = "Username must be between 5 to 20 characters" autofocus required autocomplete="off">

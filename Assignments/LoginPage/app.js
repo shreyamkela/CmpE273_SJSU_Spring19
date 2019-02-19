@@ -97,6 +97,8 @@ app.get(['/update','/update/:id'], (req, res) => {
 // TODO: Note - GET is for render, and POST is for update and redirect - when page is refresh, it is a get call - All that browser does is GET calls - But postman can do GET as well as POST
 // TODO: Seperate each route to its own file
 // TODO: Does session management make the system stateful, as we as saving the cookes?
+// TODO: Add logout button so as to change the sessionid when admin logs out. session id should also change when user goes back to login page?
+// FIXME: When the table is overwritten, the previous table entry moves down by 1 and the new one is added above it. New entries should be added below previous entries
 app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the id param sent on the update route. For example if form/row of student id 21 is to be deleted, in the html form action='/update/21' is done and on the route, /update/:id catches the 21 and saves it as param which can be accessed with req.params 
     var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
     var id = req.params.id;
