@@ -106,6 +106,9 @@ app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the i
     res.render('report.ejs', { inject: thisInject });
 });
 
+app.get('*', function(req, res){ // To handle any other route - That is a non-existant route
+    res.send('The page does not exist.', 404);
+});
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
     console.log(`Server is up on port ${port}`);
