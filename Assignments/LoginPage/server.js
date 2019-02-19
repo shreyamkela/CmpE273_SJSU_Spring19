@@ -43,13 +43,19 @@ app.post('/', (req, res) => { // After validation of the input on app.get('/'...
     }
 });
 
-app.post('/database', (req, res) => { 
+app.post('/report', (req, res) => { // How to change link in url when user clicks back button of chrome?
     var name = req.body.name; 
     var sid = req.body.sid;
     var dept = req.body.dept;
-    var database = JSON.parse(fs.readFileSync('./database.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
-    if(sid in database) {
-        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'> Student ID already present in the database! </div>" });
+    var report = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
+    
+
+
+    // IN USER DETAILS PAGE, ADD A BUTTON TO VIEW DATABASE (AFTER student id already present?)
+
+
+    if(sid in report) {
+        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'> Student ID already present in the report! </div>" });
     } else {
         let partOfEntry = {
             "Name" : name, 
@@ -57,16 +63,23 @@ app.post('/database', (req, res) => {
         };
         let entry = {};
         entry[sid] = partOfEntry;
-        database = Object.assign(entry, database); // Add a new entry to the database object
-        fs.writeFileSync('./database.json', JSON.stringify(database, undefined, 2), (err) => { //  JSON.stringify(database, undefined, 2) specifying 2 spacing stores ithe object into json file in a pretty manner. Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a database object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
+        report = Object.assign(entry, report); // Add a new entry to the report object
+        fs.writeFileSync('./report.json', JSON.stringify(report, undefined, 2), (err) => { //  JSON.stringify(report, undefined, 2) specifying 2 spacing stores ithe object into json file in a pretty manner. Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a report object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
             if(err) {
-                console.log('Unable to append to database.json');
+                console.log('Unable to append to report.json');
             } else {
                 console.log(name);
             }
         });
+        res.render('report.ejs', { alert: "" });
     }
 });
+
+
+app.post('/update', (req, res) => { 
+    res.render('report.ejs', { alert: "<tr><td>Name</td><td>Student ID</td><td>Department</td><td><form action='/update' method='post'><input type='submit' value='Delete'></form></td><tr>" });
+});
+
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
     console.log(`Server is up on port ${port}`);
