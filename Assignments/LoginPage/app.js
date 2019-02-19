@@ -1,14 +1,17 @@
+// Modules
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser'); // used to parse the POSTed req.body 
+var session = require('express-session');
+// Helpers
 const writeLog = require('./helpers/writeLog'); // log into log file. Can also use morgan extension
 const writeThenInject = require('./helpers/writeThenInject'); // write the new report to report.json and then inject this new report html into report.ejs
+
 const port = 3000;
 
 var app = express(); // make an app/application server that handles requests
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true })); // Through this, req.body contains the POSTed form data - body-parser functionality is available with express v4.16+ in this manner
+app.use(express.json());
 
 app.set('view engine', 'ejs');
 
@@ -60,15 +63,11 @@ app.post('/report', (req, res) => { // How to change link in url when user click
     }
 });
 
-
-app.post('/update/:id', (req, res) => { 
+// TODO: Add Get Posts seperate - get for display and post for update and redirect - when refresh, it is a get call - 
+app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the id param sent on the update route. For example if form/row of student id 21 is to be deleted, in the html form action='/update/21' is done and on the route, /update/:id catches the 21 and saves it as param which can be accessed with req.params 
     var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
     var id = req.params.id;
-
-    console.log("id"+id);
     delete thisReport[id]; // delete the clicked entry from report
-
-    console.log(JSON.stringify(thisReport));
     var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs
 
     res.render('report.ejs', { inject: thisInject });
