@@ -44,18 +44,9 @@ app.post('/', (req, res) => { // After validation of the input on app.get('/'...
     var passWord = req.body.password;
     if(userName == 'admin' && passWord == 'admin') {
         req.session.user = "admin";
-        res.redirect('/report');
-    } else {
-        req.session.user = undefined; // If we dont change req.session.user to undefined, then if we first login in as admin, req.session.user is still = admin when a different user tries to login so they will be able to hit a get request to /report from the url bar.
-        res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied. TODO: Can use res.redirect with the alert?
-    }
-});
-
-app.get('/report', (req, res) => { // TODO: How to change link in url when user clicks back button of chrome?
-    if( req.session.user == "admin") {
         res.render('user_details_v1.ejs', { alert: "" }); // If admin then render the user details page
     } else {
-        res.redirect('/');
+        res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied
     }
 });
 
@@ -77,21 +68,12 @@ app.post('/report', (req, res) => { // How to change link in url when user click
         entry[sid] = partOfEntry;
         report = Object.assign(entry, report); // Add a new entry to the report object
         var thisInject = writeThenInject.thisReport(report); // write the new report to report.json and then inject this new report html into report.ejs
-        res.redirect('/update');
-    }
-});
 
-app.get('/update', (req, res) => {
-    if( req.session.user == "admin") {
-        var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
-        var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs
         res.render('report.ejs', { inject : thisInject });
-    } else {
-        res.redirect('/');
     }
 });
 
-// TODO: Add Get Posts seperate - get for display and render, and post for update and redirect - when refresh, it is a get call
+// TODO: Add Get Posts seperate - get for display and post for update and redirect - when refresh, it is a get call
 // TODO: Seperate each route to its own file
 app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the id param sent on the update route. For example if form/row of student id 21 is to be deleted, in the html form action='/update/21' is done and on the route, /update/:id catches the 21 and saves it as param which can be accessed with req.params 
     var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
