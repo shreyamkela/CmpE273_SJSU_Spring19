@@ -50,7 +50,8 @@ app.post('/', (req, res) => { // After validation of the input on app.get('/'...
         res.render('login_v1.ejs', { alert: "<div id='denied'> Access Denied! </div>" }); // If not admin then add div of access denied. TODO: Can use res.redirect with the alert?
     }
 });
-
+// TODO: req.session.user == "admin" validation has to be done in each and every get/post route? Is there one time code for this?
+// TODO: We have put checking on req.session.user i.e the user input. Is this correct? Or should we be only checking the session Id/cookie ID and not any input
 app.get('/report', (req, res) => { // TODO: How to change link in url when user clicks back button of chrome?
     if( req.session.user == "admin") {
         res.render('user_details_v1.ejs', { alert: "" }); // If admin then render the user details page
@@ -81,7 +82,7 @@ app.post('/report', (req, res) => { // How to change link in url when user click
     }
 });
 
-app.get('/update', (req, res) => {
+app.get(['/update','/update/:id'], (req, res) => {
     if( req.session.user == "admin") {
         var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
         var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs

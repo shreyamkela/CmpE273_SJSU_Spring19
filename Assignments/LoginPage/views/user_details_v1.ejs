@@ -18,9 +18,11 @@
                         Department
             <input type = "text" name = "dept" pattern = "[a-zA-Z][a-zA-Z ]*" title = "Enter department using alphabets only" required>
             <br><br>
-            <input type="submit" value = "Add a User" style= "background-color : lightblue"/><br><br>
+            <input type="submit" value = "Add a User" style= "background-color : lightblue"/>
             <input type = "reset" value="Clear" style="background-color :lightblue"><br><br>
         </form>
+
+        <form action="/update"  method="GET"><input type="submit" value="View Report" style="background-color :lightblue"/></form> <!-- Create a different form tag to GET /update route that is fetch the current report. This line is a form tag itself because this has to run independent of the above form. If line is included inside the above form, then the form validations of 'required' and 'pattern' will run before this form runs -->
         <%- alert %> <!-- This is ejs variable injection. Here we inject the alert variable from app.js into this ejs. How to use ejs tags - https://stackoverflow.com/questions/47857392/res-render-send-data-to-ejs-file-and-using-it-in-plain-javascript -->
     </body>
 </html>
