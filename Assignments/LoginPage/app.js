@@ -1,7 +1,8 @@
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser');
-
+const bodyParser = require('body-parser'); // used to parse the POSTed req.body 
+const writeLog = require('./helpers/writeLog'); // log into log file. Can also use morgan extension
+const writeThenInject = require('./helpers/writeThenInject'); // write the new report to report.json and then inject this new report html into report.ejs
 const port = 3000;
 
 var app = express(); // make an app/application server that handles requests
@@ -13,14 +14,7 @@ app.set('view engine', 'ejs');
 
 // Maintain a log for all requests to the server:
 app.use((req, res, next) => { //Registering your custom express middleware. next specifies what to do when this middleware call completes. Using this we can chain different middlewares. This is async operation so next has to be called otherwise the app handlers for requests will never fire and app pauses till next is called. This middleware moniters all of the requests to our server and therefore if next is not used, our server will not respond to any request
-    var now = new Date().toString(); // To log date and time when server is pinged
-    var log = `${now}: ${req.method} ${req.url}`; // Logger - Logs whenever our server is pinged for any kind of requests. req.method is the kind of request made by the user, i.e GET, POST, etc. req.url is the url that the user visited/pinged
-    console.log(log); 
-    fs.appendFile('server.log', log + '\n', (err) => { // Log the current ping into server.log. log + '\n' is used to append new ping in nextline. Callback function is necessary for appendfile. We use error check as a callback function here. appendfile is an async func. Before node 7 async func were allowed to be made without callback but after that they have been deprecated. So we have to mention a callback func to an sync function 
-        if(err) {
-            console.log('Unable to append to server.log');
-        }
-    });
+    writeLog.append('./logs/server.log', req.method, req.url); // log into log file
     next(); // If next is not used, server pauses here and no request is served
 });
 
@@ -48,11 +42,7 @@ app.post('/report', (req, res) => { // How to change link in url when user click
     var sid = req.body.sid;
     var dept = req.body.dept;
     var report = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
-    
-
-
-    // IN USER DETAILS PAGE, ADD A BUTTON TO VIEW DATABASE (AFTER student id already present?)
-
+    // TODO: IN USER DETAILS PAGE, ADD A BUTTON TO VIEW DATABASE (AFTER student id already present?)
 
     if(sid in report) {
         res.render('user_details_v1.ejs', { alert: "<div id='duplicate'> Student ID already present in the report! </div>" });
@@ -64,21 +54,8 @@ app.post('/report', (req, res) => { // How to change link in url when user click
         let entry = {};
         entry[sid] = partOfEntry;
         report = Object.assign(entry, report); // Add a new entry to the report object
-        fs.writeFileSync('./report.json', JSON.stringify(report, undefined, 2), (err) => { //  JSON.stringify(report, undefined, 2) specifying 2 spacing stores ithe object into json file in a pretty manner. Note that we are not appending the json file. We cannot append directly. Rather we copy all contents of the file to a report object, add to this object and then write this new object back to this file. That is the file is overwritten with the new object.
-            if(err) {
-                console.log('Unable to append to report.json');
-            } else {
-                console.log(name);
-            }
-        });
-        var thisInject = "";
-        var idCount = 1;
-        for(keys in report) {
-        let name = report[keys]["Name"];
-        let dept = report[keys]["Department"];
-        thisInject = thisInject + `<tr><td>${name}</td><td>${keys}</td><td>${dept}</td><td><form action='/update/${keys}' method='post'><input type='submit' id=${idCount} value='Delete'></form></td><tr>`;
-        idCount++;
-    }
+        var thisInject = writeThenInject.thisReport(report); // write the new report to report.json and then inject this new report html into report.ejs
+
         res.render('report.ejs', { inject : thisInject });
     }
 });
@@ -92,24 +69,8 @@ app.post('/update/:id', (req, res) => {
     delete thisReport[id]; // delete the clicked entry from report
 
     console.log(JSON.stringify(thisReport));
+    var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs
 
-    fs.writeFileSync('./report.json', JSON.stringify(thisReport, undefined, 2), (err) => { //  Overwrite report.json with the updated report
-        if(err) {
-            console.log('Unable to append to report.json');
-        } else {
-            console.log(name);
-        }
-    });
-
-    var thisInject = "";
-    var idCount = 1;
-    for(keys in thisReport) {
-        let name = thisReport[keys]["Name"];
-        let dept = thisReport[keys]["Department"];
-        thisInject = thisInject + `<tr><td>${name}</td><td>${keys}</td><td>${dept}</td><td><form action='/update/${keys}' method='post'><input type='submit' id=${idCount} value='Delete'></form></td><tr>`;
-        idCount++;
-    }
-    console.log()
     res.render('report.ejs', { inject: thisInject });
 });
 

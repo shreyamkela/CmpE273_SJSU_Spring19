@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports.writeLog = (file, method, url) => {
+module.exports.append = (file, method, url) => {
     
     var now = new Date().toString(); // To log date and time when server is pinged
     var log = `${now}: ${method} ${url}`; // Logger - Logs whenever our server is pinged for any kind of requests. req.method is the kind of request made by the user, i.e GET, POST, etc. req.url is the url that the user visited/pinged
