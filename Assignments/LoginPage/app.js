@@ -63,25 +63,30 @@ app.get('/report', (req, res) => { // TODO: How to change link in url when user 
 });
 
 app.post('/report', (req, res) => { // How to change link in url when user clicks back button of chrome?
-    var name = req.body.name; 
-    var sid = req.body.sid;
-    var dept = req.body.dept;
-    var report = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
-    // TODO: IN USER DETAILS PAGE, ADD A BUTTON TO VIEW DATABASE (AFTER student id already present?)
-
-    if(sid in report) {
-        res.render('user_details_v1.ejs', { alert: "<div id='duplicate'  style='text-align: center;'> Student ID already present in the report! </div>" });
+    if( req.session.user == "admin") {
+        var name = req.body.name; 
+        var sid = req.body.sid;
+        var dept = req.body.dept;
+        var report = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Read the whole file as a string then parse that string as a json object
+    
+        if(sid in report) {
+            res.render('user_details_v1.ejs', { alert: "<div id='duplicate'  style='text-align: center;'> Student ID already present in the report! </div>" });
+        } else {
+            let partOfEntry = {
+                "Name" : name, 
+                "Department" : dept
+            };
+            let entry = {};
+            entry[sid] = partOfEntry;
+            report = Object.assign(entry, report); // Add a new entry to the report object
+            var thisInject = writeThenInject.thisReport(report); // write the new report to report.json and then inject this new report html into report.ejs
+            res.redirect('/update');
+        }
     } else {
-        let partOfEntry = {
-            "Name" : name, 
-            "Department" : dept
-        };
-        let entry = {};
-        entry[sid] = partOfEntry;
-        report = Object.assign(entry, report); // Add a new entry to the report object
-        var thisInject = writeThenInject.thisReport(report); // write the new report to report.json and then inject this new report html into report.ejs
-        res.redirect('/update');
-    }
+        res.redirect('/');
+    }    
+    
+
 });
 
 app.get(['/update','/update/:id'], (req, res) => {
@@ -93,23 +98,26 @@ app.get(['/update','/update/:id'], (req, res) => {
         res.redirect('/');
     }
 });
-
-// TODO: Note - GET is for render, and POST is for update and redirect - when page is refresh, it is a get call - All that browser does is GET calls - But postman can do GET as well as POST
+// Note - GET is for render, and POST is for update and redirect - when page is refresh, it is a get call - All that browser does is GET calls - But postman can do GET as well as POST
 // TODO: Seperate each route to its own file
 // TODO: Does session management make the system stateful, as we as saving the cookes?
 // TODO: Add logout button so as to change the sessionid when admin logs out. session id should also change when user goes back to login page?
 // FIXME: When the table is overwritten, the previous table entry moves down by 1 and the new one is added above it. New entries should be added below previous entries
 app.post('/update/:id', (req, res) => { // :id is a placeholder and the is the id param sent on the update route. For example if form/row of student id 21 is to be deleted, in the html form action='/update/21' is done and on the route, /update/:id catches the 21 and saves it as param which can be accessed with req.params 
-    var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
-    var id = req.params.id;
-    delete thisReport[id]; // delete the clicked entry from report
-    var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs
-
-    res.render('report.ejs', { inject: thisInject });
+    if( req.session.user == "admin") {
+        var thisReport = JSON.parse(fs.readFileSync('./report.json', 'utf8')); // Load the report
+        var id = req.params.id;
+        delete thisReport[id]; // delete the clicked entry from report
+        var thisInject = writeThenInject.thisReport(thisReport); // write the new report to report.json and then inject this new report html into report.ejs
+        res.render('report.ejs', { inject: thisInject });
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.get('*', function(req, res){ // To handle any other route - That is a non-existant route
     res.send('The page does not exist.', 404);
+    // res.redirect('/');
 });
 
 app.listen(port, () => { // We can also pass a function as the second argument to listen. Listen to port=3000 or heroku
