@@ -2,4 +2,5 @@
 **/test.*
 **/*.docx
 **/*.tmp
+**/.vscode
 
