@@ -1,0 +1,1 @@
+Provided with the basic Backend and Frontend of the Bookstore-app, complete the feature of adding and deleting books.
