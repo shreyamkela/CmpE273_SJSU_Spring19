@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// TODO import cookie from "react-cookies";
+import { Redirect } from "react-router";
+import cookie from "react-cookies";
 import axios from "axios";
 
 class Delete extends Component {
@@ -11,18 +12,32 @@ class Delete extends Component {
   };
 
   render() {
+    //if not logged in go to login page
+    let redirectVar = null;
+    if (!cookie.load("cookie")) {
+      redirectVar = <Redirect to="/login" />;
+    }
     return (
-      <div class="container">
-        <form onSubmit={this.handleDelete}>
-          <div style={{ width: "50%", float: "left" }} class="form-group">
-            <input type="text" class="form-control" name="BookID" placeholder="Search a Book by Book ID" ref="bookID" />
-          </div>
-          <div style={{ width: "50%", float: "right" }}>
-            <button class="btn btn-success" type="submit">
-              Delete
-            </button>
-          </div>
-        </form>
+      <div>
+        {redirectVar}
+        <div class="container">
+          <form onSubmit={this.handleDelete}>
+            <div style={{ width: "50%", float: "left" }} class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                name="BookID"
+                placeholder="Search a Book by Book ID"
+                ref="bookID"
+              />
+            </div>
+            <div style={{ width: "50%", float: "right" }}>
+              <button class="btn btn-success" type="submit">
+                Delete
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
