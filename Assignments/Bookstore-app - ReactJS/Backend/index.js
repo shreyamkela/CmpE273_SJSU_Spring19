@@ -54,17 +54,11 @@ var books = [
 
 //Route to handle Post Request Call
 app.post("/login", function(req, res) {
-  // Object.keys(req.body).forEach(function(key){
-  //     req.body = JSON.parse(key);
-  // });
-  // var username = req.body.username;
-  // var password = req.body.password;
-  //console.log("Inside Login Post Request");
-  //console.log("Req Body : ", username + "password : ",password);
-  //console.log("Req Body : ", req.body);
   Users.filter(function(user) {
     if (user.username === req.body.username && user.password === req.body.password) {
       res.cookie("cookie", "admin", {
+        // Set the name 'cookie' to the cookie sent to client, when admin logs in. At react/client end, we can check whether the name is 'cookie' or not, to authenticate.
+        // At react/client end, we check the cookie name using cookie.load('cookie') command of the 'react-cookies' library. If cookie.load('cookie') != null this means that the user is admin
         maxAge: 900000,
         httpOnly: false,
         path: "/"
@@ -90,19 +84,15 @@ app.get("/home", function(req, res) {
 
 app.post("/delete", function(req, res) {
   console.log("Inside Delete Post");
-  // TODO admin check:
-  //   if (req.session.user.username === "admin" && req.session.user.password === "admin") {
-  //     console.log("You are admin!", req.body.id);
-  //   } else {
-  //     console.log("You are not admin!");
-  //   }
   var present = false;
 
   for (let index in books) {
+    // iterate the array of objects
     if (books[index]["BookID"] == req.body.id) {
+      // req.body contains the data received/posted by the client
       present = true;
       console.log("TO REMOVE:", books[index]);
-      books.splice(index, 1); // Remove an index from array - https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
+      books.splice(index, 1); // Remove the object at this index from array - https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
     }
   }
   console.log(`BookID ${req.body.id} present?`, present);
@@ -112,18 +102,12 @@ app.post("/delete", function(req, res) {
 
 app.post("/create", function(req, res) {
   console.log("Inside Create Post");
-  // TODO admin check:
-  //   if (req.session.user.username === "admin" && req.session.user.password === "admin") {
-  //     console.log("You are admin!", req.body.id);
-  //   } else {
-  //     console.log("You are not admin!");
-  //   }
   let newEntry = {
-    BookID: req.body.id,
+    BookID: req.body.id, // req.body contains the data received/posted by the client
     Title: req.body.title,
     Author: req.body.author
   };
-  books.push(newEntry);
+  books.push(newEntry); // push new object into array
   console.log(books);
   // FIXME  throw er; Unhandled 'error' event Error: listen EADDRINUSE :::3001
 });
