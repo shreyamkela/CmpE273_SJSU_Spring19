@@ -37,6 +37,7 @@ class Delete extends Component {
                 name="BookID"
                 placeholder="Search a Book by Book ID"
                 ref="bookID"
+                required
               />
             </div>
             <div style={{ width: "50%", float: "right" }}>

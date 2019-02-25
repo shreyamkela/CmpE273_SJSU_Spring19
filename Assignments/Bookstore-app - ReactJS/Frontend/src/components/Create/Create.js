@@ -35,11 +35,18 @@ class Create extends Component {
               {" "}
               {/* The action for the submit button is specified in the form with the onSubmit. ref stores the input of the fields */}
               <div style={{ width: "30%" }} class="form-group">
-                <input type="text" class="form-control" name="BookID" placeholder="Book ID" ref="bookID" />
+                <input type="text" class="form-control" name="BookID" placeholder="Book ID" ref="bookID" required />
               </div>
               <br />
               <div style={{ width: "30%" }} class="form-group">
-                <input type="text" class="form-control" name="Title" placeholder="Book Title" ref="bookTitle" />
+                <input
+                  type="text"
+                  class="form-control"
+                  name="Title"
+                  placeholder="Book Title"
+                  ref="bookTitle"
+                  required
+                />
               </div>
               <br />
               <div style={{ width: "30%" }} class="form-group">

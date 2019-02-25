@@ -102,13 +102,29 @@ app.post("/delete", function(req, res) {
 
 app.post("/create", function(req, res) {
   console.log("Inside Create Post");
-  let newEntry = {
-    BookID: req.body.id, // req.body contains the data received/posted by the client
-    Title: req.body.title,
-    Author: req.body.author
-  };
-  books.push(newEntry); // push new object into array
-  console.log(books);
+
+  var present = false;
+  for (let index in books) {
+    // iterate the array of objects
+    if (books[index]["BookID"] == req.body.id) {
+      // check if book id already present
+      // req.body contains the data received/posted by the client
+      present = true;
+    }
+  }
+
+  if (present != true) {
+    // if book id not already present, then add new entry
+    let newEntry = {
+      BookID: req.body.id, // req.body contains the data received/posted by the client
+      Title: req.body.title,
+      Author: req.body.author
+    };
+    books.push(newEntry); // push new object into array
+  } else {
+    console.log("Book ID already present!");
+  }
+  // console.log(books);
   // FIXME  throw er; Unhandled 'error' event Error: listen EADDRINUSE :::3001
 });
 
