@@ -97,12 +97,35 @@ app.post("/delete", function(req, res) {
   //     console.log("You are not admin!");
   //   }
   var present = false;
+
   for (let index in books) {
     if (books[index]["BookID"] == req.body.id) {
       present = true;
+      console.log("TO REMOVE:", books[index]);
+      books.splice(index, 1); // Remove an index from array - https://stackoverflow.com/questions/5767325/how-do-i-remove-a-particular-element-from-an-array-in-javascript
     }
   }
   console.log(`BookID ${req.body.id} present?`, present);
+  console.log(books);
+  // FIXME  throw er; Unhandled 'error' event Error: listen EADDRINUSE :::3001
+});
+
+app.post("/create", function(req, res) {
+  console.log("Inside Create Post");
+  // TODO admin check:
+  //   if (req.session.user.username === "admin" && req.session.user.password === "admin") {
+  //     console.log("You are admin!", req.body.id);
+  //   } else {
+  //     console.log("You are not admin!");
+  //   }
+  let newEntry = {
+    BookID: req.body.id,
+    Title: req.body.title,
+    Author: req.body.author
+  };
+  books.push(newEntry);
+  console.log(books);
+  // FIXME  throw er; Unhandled 'error' event Error: listen EADDRINUSE :::3001
 });
 
 //start your server on port 3001
