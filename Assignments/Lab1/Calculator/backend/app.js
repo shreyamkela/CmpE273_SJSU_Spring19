@@ -21,6 +21,9 @@ app.post("/", (req, res) => {
     // if expression is invalid then eval will throw error and would send 500 error code to frontend, therefore we need a try catch to tackle invalid expressions
     let value = eval(query); // eval function can evaluate a valid mathematical expression - https://www.geeksforgeeks.org/javascript-eval-function/
     console.log(value);
+    if (value == Infinity) {
+      throw e;
+    }
     res.status(200).send({ value: value });
   } catch (e) {
     // let value = "INVALID INPUT";
