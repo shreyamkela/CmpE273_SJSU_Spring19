@@ -111,7 +111,7 @@ class App extends Component {
               9
             </button>
             <button id="/" onClick={this.handleClick} type="button" className="btn btn-outline-primary waves-effect m-1">
-              /
+              &divide;
             </button>
           </div>
 
@@ -126,7 +126,7 @@ class App extends Component {
               6
             </button>
             <button id="*" onClick={this.handleClick} type="button" className="btn btn-outline-primary waves-effect m-1">
-              *
+              x
             </button>
           </div>
 
