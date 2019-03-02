@@ -14,7 +14,7 @@ const appStyle = {
 
 class App extends Component {
   state = {
-    expression: "4+88" // Set display character limit in the panel to 36
+    expression: "" // Set display character limit in the panel to 36
   };
 
   handleEquals = () => {
@@ -31,10 +31,10 @@ class App extends Component {
     // Refer - https://developer.mozilla.org/en-US/docs/Web/API/Event/target
     // Refer - https://www.freecodecamp.org/forum/t/react-js-passing-button-id-as-parameter-onclick-function/62301
     console.log(event.target.id);
-    // var previousExpression = this.state.expression;
-    // var expression = id + previousExpression;
-    // console.log(expression);
-    //this.setState({ expression });
+    var previousExpression = this.state.expression;
+    var expression = previousExpression + event.target.id;
+    console.log(expression);
+    this.setState({ expression });
   };
 
   render() {

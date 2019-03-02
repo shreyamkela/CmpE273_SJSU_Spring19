@@ -17,8 +17,15 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   var query = req.body.query;
   console.log(query);
-  console.log(eval(query)); // eval function can evaluate a valid mathematical expression - https://www.geeksforgeeks.org/javascript-eval-function/
-  res.send("Result: " + eval(query)); // Cannot send just eval(query), which is a number, using res.send as res.send interprets numbers as status codes - https://stackoverflow.com/questions/39498601/unable-to-send-numbers-using-res-send-using-express-with-node
+  try {
+    // if expression is invalid then eval will throw error and would send 500 error code to frontend, therefore we need a try catch to tackle invalid expressions
+    var value = eval(query); // eval function can evaluate a valid mathematical expression - https://www.geeksforgeeks.org/javascript-eval-function/
+    console.log(value);
+  } catch (e) {
+    var value = "INVALID INPUT";
+  } finally {
+    res.send("Result: " + value); // Cannot send just eval(query), which is a number, using res.send as res.send interprets numbers as status codes - https://stackoverflow.com/questions/39498601/unable-to-send-numbers-using-res-send-using-express-with-node
+  }
 });
 
 app.listen(3001, () => {
