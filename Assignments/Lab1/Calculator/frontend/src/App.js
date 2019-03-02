@@ -40,7 +40,7 @@ class App extends Component {
     try {
       // fetch data from a url endpoint. We need try catch as catch block will catch the error which is sent by the backend eval function when the expression is invalid
       data = await axios.post("http://localhost:3001/", {
-        query: this.state.expression
+        query: this.state.expression // query is accessible at the backend by req.body.query
       });
       //console.log(data);
       //console.log(data.data.value);
