@@ -26,7 +26,7 @@ class Create extends Component {
     }
     return (
       <div>
-        {redirectVar}{" "}
+        {redirectVar}
         {/* If cookie name is null then redirectVar is /login, else it is null. If redirectVar is /login. the react router routes the page to login, without loading the divs below */}
         <div>
           <br />
@@ -39,14 +39,7 @@ class Create extends Component {
               </div>
               <br />
               <div style={{ width: "30%" }} class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="Title"
-                  placeholder="Book Title"
-                  ref="bookTitle"
-                  required
-                />
+                <input type="text" class="form-control" name="Title" placeholder="Book Title" ref="bookTitle" required />
               </div>
               <br />
               <div style={{ width: "30%" }} class="form-group">

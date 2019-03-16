@@ -1,1 +1,0 @@
-This app has its own repository: **canvas-app**
